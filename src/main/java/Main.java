@@ -15,10 +15,11 @@ public class Main {
         String directoryPath = args[0];
         String startsWith = args[1];
         Path path = Paths.get(directoryPath);
-        DirectoryStream<Path> directories = Files.newDirectoryStream(path);
-        for (Path directory : directories) {
-            if (directory.getFileName().toString().startsWith(startsWith)) {
-                System.out.println(directory.getFileName());
+        try (DirectoryStream<Path> directories = Files.newDirectoryStream(path)) {
+            for (Path directory : directories) {
+                if (directory.getFileName().toString().startsWith(startsWith)) {
+                    System.out.println(directory.getFileName());
+                }
             }
         }
     }
